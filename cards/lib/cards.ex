@@ -31,10 +31,12 @@ defmodule Cards do
   return
   """
   def load(filename) do
-    {status,binary} = File.read(filename) #read reads the given file and returns a tuple with the status and the binary
-    case status do
-      :ok  -> :erlang.binary_to_term(binary)  #binary_to_term returns the term represented by the given binary
-      :error  -> "The file does not exist"
+    #File.read(filename) #read reads the given file and returns a tuple with the status and the binary
+    # returns {:ok, binary} or {:error, error}
+    # so we can pattern match the tuple and get the binary or the error
+    case File.read(filename) do
+      {:ok, binary } -> :erlang.binary_to_term(binary)  #binary_to_term returns the term represented by the given binary
+      {:error, _error}  -> "The file does not exist"
     end
   end
 end
