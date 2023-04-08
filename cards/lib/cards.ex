@@ -25,4 +25,16 @@ defmodule Cards do
     binary = :erlang.term_to_binary(deck) #term_to_binary returns a binary representation of the given term
     File.write(filename, binary) #write writes the given binary to the given file
   end
+
+  @doc """
+  load binary file into a variable
+  return
+  """
+  def load(filename) do
+    {status,binary} = File.read(filename) #read reads the given file and returns a tuple with the status and the binary
+    case status do
+      :ok  -> :erlang.binary_to_term(binary)  #binary_to_term returns the term represented by the given binary
+      :error  -> "The file does not exist"
+    end
+  end
 end
