@@ -36,7 +36,16 @@ defmodule Cards do
     {hand, new_deck} = Enum.split(deck, hand_size) #pattern match the tuple with the two lists
 
   end
+  @doc """
+  check if a deck contains a given card
 
+    ## Examples
+      iex> deck = Cards.create_deck()
+      iex> Cards.contains?(deck, "ace of hearts")
+      true
+      iex> Cards.contains?(deck, "ace of spiders")
+      false
+  """
   def contains?(deck, card) do # the ? is a convention to indicate that the function returns a boolean
     Enum.member?(deck, card) #member? returns true if the list contains the given element
   end
@@ -59,6 +68,9 @@ defmodule Cards do
       {:error, _error}  -> "The file does not exist"
     end
   end
+  @doc """
+  create a hand of cards
+  """
   def create_hand(hand_size) do
 
     Cards.create_deck()
