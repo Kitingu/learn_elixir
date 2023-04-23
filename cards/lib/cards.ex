@@ -3,16 +3,33 @@ defmodule Cards do
   This module contains functions for creating and manipulating a deck of cards
   """
 
+  @doc """
+  create_deck a list of strings representing a deck of cards
+  """
   def create_deck do
    values = ["ace", "king", "queen", "jack", "10", "9", "8", "7", "6", "5", "4", "3", "2"]
    suits = ["hearts", "diamonds", "spades", "clubs"]
    newList = for suit <- suits, value <- values, do: "#{value} of #{suit}" #for suit in suits, value in values, do: "#{value} of #{suit}"
   end
 
+  @doc """
+  shuffle_deck a list of strings representing a deck of cards
+  """
   def shuffle_deck(deck) do
     Enum.shuffle(deck) #shuffle returns a shuffled list
   end
 
+  @doc """
+  divide a deck into a hand and a new deck
+  the `hand_size` is the number of cards that should be in the hand
+
+  ## Examples
+      iex> deck = Cards.create_deck()
+      iex> {hand, new_deck} = Cards.deal(deck, 5)
+      iex> hand
+      ["ace of hearts", "king of hearts", "queen of hearts", "jack of hearts", "10 of hearts"]
+
+  """
   def deal(deck,hand_size) do
     #split returns a tuple two lists with the first list containing the first n elements of the list
     Enum.split(deck, hand_size) #split returns a tuple with two lists
