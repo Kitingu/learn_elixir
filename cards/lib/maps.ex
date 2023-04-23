@@ -22,4 +22,3 @@ Map.delete(colors, "green")
 
 #accessing values
 colors["blue"]
-
