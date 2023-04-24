@@ -4,6 +4,7 @@ defmodule Identicon do
     |> to_hash  #calls next function passing in the result of the previous function
     |> pick_color #has the Identicon.Image struct as an argument
     |> build_grid
+    |> filter_odd_squares
   end
   @doc """
   Takes an Identicon.Image struct and returns an updated struct with a color tuple
@@ -23,6 +24,15 @@ defmodule Identicon do
     |> List.flatten
     |> Enum.with_index()
     %Identicon.Image{image | grid: grid}  #update the image struct with the grid
+  end
+
+  def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
+   #grid [{123.0},{145,1}]
+    grid = Enum.filter grid, fn({code,_index }) ->
+      rem(code,2) == 0
+    end
+    %Identicon.Image{image | grid: grid}
+
   end
 
   def mirror_row(row) do
