@@ -4,11 +4,15 @@ defmodule Identicon do
     |> to_hash  #calls next function passing in the result of the previous function
     |> pick_color #has the Identicon.Image struct as an argument
   end
-  def pick_color(image) do
-    %Identicon.Image{hex: hex_list} = image
-    [r, g, b | _tail] = hex_list #pattern matching to get the first three elements of the list
-    # | _tail is a convention to indicate that we don't care about the rest of the list
-    [r, g, b]
+  @doc """
+  Takes an Identicon.Image struct and returns an updated struct with a color tuple
+  
+  """
+  def pick_color(%Identicon.Image{hex: [r,g,b | _tail]} = image) do
+    #shorthand for pattern matching
+   # %Identicon.Image{hex: [r,g,b | _tail]} = image
+    %Identicon.Image{image | color: {r,g,b}} #update the image struct with the color tuple
+
   end
   def to_hash(input) do
     hex = :crypto.hash(:md5, input)
