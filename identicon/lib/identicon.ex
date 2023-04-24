@@ -16,11 +16,13 @@ defmodule Identicon do
 
   end
   def build_grid(%Identicon.Image{hex: hex} = image) do
-    hex
+    grid = hex #grid is assigned the value of the result of chaining the next functions
     |> Enum.chunk_every(3,3, :discard) #chunk_by returns a list of lists with the given number of elements
     |> Enum.map(&mirror_row/1) #map returns a list with the result of the given function applied to each element
     #the & is a shorthand for fn x -> x which is a function that returns its argument
-
+    |> List.flatten
+    |> Enum.with_index()
+    %Identicon.Image{image | grid: grid}  #update the image struct with the grid
   end
 
   def mirror_row(row) do
