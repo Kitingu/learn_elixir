@@ -18,6 +18,8 @@ defmodule Identicon do
   def build_grid(%Identicon.Image{hex: hex} = image) do
     hex
     |> Enum.chunk_every(3,3, :discard) #chunk_by returns a list of lists with the given number of elements
+    |> Enum.map(&mirror_row/1) #map returns a list with the result of the given function applied to each element
+    #the & is a shorthand for fn x -> x which is a function that returns its argument
 
   end
 
